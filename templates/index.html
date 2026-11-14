@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Spam Detector</title>
+<style>
+  :root { --bg:#f5f7fb; --card:#fff; --text:#1d2433; --muted:#667085; --border:#dde3ee;
+          --spam:#d92d20; --ham:#12a150; --accent:#3b5bdb; }
+  @media (prefers-color-scheme: dark) {
+    :root { --bg:#10131a; --card:#1a1f2b; --text:#e8ecf4; --muted:#98a2b3; --border:#2c3445; }
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+         background:var(--bg); color:var(--text); display:flex; justify-content:center; padding:32px 16px; }
+  main { width:100%; max-width:640px; }
+  h1 { margin:0 0 4px; font-size:1.6rem; } p.sub { margin:0 0 20px; color:var(--muted); }
+  .card { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:20px; }
+  textarea { width:100%; min-height:130px; padding:12px; font:inherit; color:inherit; background:transparent;
+             border:1px solid var(--border); border-radius:8px; resize:vertical; }
+  button { margin-top:12px; padding:10px 18px; border:0; border-radius:8px; background:var(--accent);
+           color:#fff; font:inherit; font-weight:600; cursor:pointer; }
+  button.ghost { background:transparent; color:var(--accent); border:1px solid var(--border); margin-left:6px; }
+  #result { margin-top:18px; display:none; }
+  .badge { display:inline-block; padding:6px 14px; border-radius:999px; color:#fff; font-weight:700; }
+  .spam { background:var(--spam); } .ham { background:var(--ham); }
+  .bar { height:10px; background:var(--border); border-radius:6px; margin-top:12px; overflow:hidden; }
+  .bar > div { height:100%; background:var(--spam); width:0; transition:width .4s; }
+  small { color:var(--muted); }
+</style>
+</head>
+<body>
+<main>
+  <h1>📩 Spam Detector</h1>
+  <p class="sub">Paste an SMS or message. A TF-IDF + machine-learning model estimates whether it is spam.</p>
+  <div class="card">
+    <textarea id="msg" placeholder="e.g. WINNER!! You have won a £1000 prize. Call 09061701461 now to claim."></textarea>
+    <div>
+      <button id="go">Check message</button>
+      <button class="ghost" data-ex="Congratulations! You've been selected for a FREE iPhone. Click http://bit.ly/claim now">Spam example</button>
+      <button class="ghost" data-ex="Hey, are we still meeting for lunch at 1pm tomorrow?">Ham example</button>
+    </div>
+    <div id="result">
+      <span id="badge" class="badge"></span>
+      <div class="bar"><div id="fill"></div></div>
+      <small id="detail"></small>
+    </div>
+  </div>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+document.querySelectorAll("[data-ex]").forEach(b => b.onclick = () => { $("msg").value = b.dataset.ex; });
+$("go").onclick = async () => {
+  const message = $("msg").value.trim();
+  if (!message) { $("msg").focus(); return; }
+  const r = await fetch("/api/predict", {method:"POST", headers:{"Content-Type":"application/json"},
+                                         body: JSON.stringify({message})});
+  const d = await r.json();
+  $("result").style.display = "block";
+  if (!r.ok) { $("badge").className = "badge"; $("badge").textContent = "Error"; $("detail").textContent = d.error; return; }
+  $("badge").className = "badge " + d.label;
+  $("badge").textContent = d.label === "spam" ? "🚫 SPAM" : "✅ NOT SPAM (ham)";
+  $("fill").style.width = (d.spam_probability * 100).toFixed(1) + "%";
+  $("detail").textContent = "Spam probability: " + (d.spam_probability * 100).toFixed(1) + "%";
+};
+</script>
+</body>
+</html>

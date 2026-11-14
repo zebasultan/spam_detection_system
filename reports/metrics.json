@@ -1,0 +1,150 @@
+{
+  "dataset": {
+    "messages": 5169,
+    "spam": 653,
+    "ham": 4516
+  },
+  "best_model": "Logistic Regression",
+  "cross_validation": {
+    "Naive Bayes": {
+      "mean_f1": 0.9333106712489545,
+      "std_f1": 0.014303909931315459
+    },
+    "Logistic Regression": {
+      "mean_f1": 0.9499108906977259,
+      "std_f1": 0.0063246056771376225
+    },
+    "Linear SVM": {
+      "mean_f1": 0.9484458023628004,
+      "std_f1": 0.004272295326118578
+    },
+    "Random Forest": {
+      "mean_f1": 0.9460602880846729,
+      "std_f1": 0.0129060617989287
+    }
+  },
+  "test_results": {
+    "Naive Bayes": {
+      "accuracy": 0.9845261121856866,
+      "precision": 0.9752066115702479,
+      "recall": 0.9007633587786259,
+      "f1": 0.9365079365079365,
+      "roc_auc": 0.9937950681781678
+    },
+    "Logistic Regression": {
+      "accuracy": 0.9874274661508704,
+      "precision": 0.9682539682539683,
+      "recall": 0.9312977099236641,
+      "f1": 0.9494163424124513,
+      "roc_auc": 0.9965593906655509
+    },
+    "Linear SVM": {
+      "accuracy": 0.9874274661508704,
+      "precision": 0.9758064516129032,
+      "recall": 0.9236641221374046,
+      "f1": 0.9490196078431372,
+      "roc_auc": 0.997083512972027
+    },
+    "Random Forest": {
+      "accuracy": 0.9912959381044487,
+      "precision": 0.9919354838709677,
+      "recall": 0.9389312977099237,
+      "f1": 0.9647058823529412,
+      "roc_auc": 0.9958450626833372
+    }
+  },
+  "best_confusion_matrix": [
+    [
+      899,
+      4
+    ],
+    [
+      9,
+      122
+    ]
+  ],
+  "top_spam_words": [
+    "phonetoken",
+    "urltoken",
+    "call phonetoken",
+    "text",
+    "txt",
+    "reply",
+    "mobile",
+    "numtoken",
+    "arsenal",
+    "numtoken numtoken",
+    "free",
+    "ringtone",
+    "claim",
+    "service",
+    "stop"
+  ],
+  "misclassified_examples": [
+    {
+      "message": "You will recieve your tone within the next 24hrs. For Terms and conditions please see Channel U Teletext Pg 750",
+      "true": "spam",
+      "predicted": "ham"
+    },
+    {
+      "message": ", ow u dey.i paid 60,400thousad.i told  u would call . ",
+      "true": "ham",
+      "predicted": "spam"
+    },
+    {
+      "message": "Are you free now?can i call now?",
+      "true": "ham",
+      "predicted": "spam"
+    },
+    {
+      "message": "K k:) sms chat with me.",
+      "true": "ham",
+      "predicted": "spam"
+    },
+    {
+      "message": "Bought one ringtone and now getting texts costing 3 pound offering more tones etc",
+      "true": "spam",
+      "predicted": "ham"
+    },
+    {
+      "message": "Babe: U want me dont u baby! Im nasty and have a thing 4 filthyguys. Fancy a rude time with a sexy bitch. How about we go slo n hard! Txt XXX SLO(4msgs)",
+      "true": "spam",
+      "predicted": "ham"
+    },
+    {
+      "message": "Check Out Choose Your Babe Videos @ sms.shsex.netUN fgkslpoPW fgkslpo",
+      "true": "spam",
+      "predicted": "ham"
+    },
+    {
+      "message": "In The Simpsons Movie released in July 2007 name the band that died at the start of the film? A-Green Day, B-Blue Day, C-Red Day. (Send A, B or C)",
+      "true": "spam",
+      "predicted": "ham"
+    },
+    {
+      "message": "Xmas & New Years Eve tickets are now on sale from the club, during the day from 10am till 8pm, and on Thurs, Fri & Sat night this week. They're selling fast!",
+      "true": "spam",
+      "predicted": "ham"
+    },
+    {
+      "message": "Latest News! Police station toilet stolen, cops have nothing to go on!",
+      "true": "spam",
+      "predicted": "ham"
+    },
+    {
+      "message": "Would you like to see my XXX pics they are so hot they were nearly banned in the uk!",
+      "true": "spam",
+      "predicted": "ham"
+    },
+    {
+      "message": "Your bill at 3 is \u00a333.65 so thats not bad!",
+      "true": "ham",
+      "predicted": "spam"
+    },
+    {
+      "message": "Burger King - Wanna play footy at a top stadium? Get 2 Burger King before 1st Sept and go Large or Super with Coca-Cola and walk out a winner",
+      "true": "spam",
+      "predicted": "ham"
+    }
+  ]
+}
